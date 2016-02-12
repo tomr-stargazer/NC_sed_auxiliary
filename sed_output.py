@@ -8,6 +8,7 @@ We're starting with the output of the "17.*" files.
 from __future__ import division
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 import astropy.table
 import astropy.units as u
@@ -43,3 +44,17 @@ class SED_output(object):
         self.table = table
 
         return self
+
+    def plot(self):
+
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+
+        ax.plot(self.table['wavelength'], self.table['luminosity'])
+        ax.set_xlabel(r"Wavelength ($\mu$m)")
+        ax.set_ylabel("Luminosity (erg/s)")
+
+        ax.set_xscale('log')
+        ax.set_yscale('log')
+
+        return fig
