@@ -30,7 +30,20 @@ class SED_output(object):
     @staticmethod
     def load(filename):
 
-        data = np.loadtxt(filename)
+        try:
+            data = np.loadtxt(filename)
+        except ValueError:
+
+            num_lines = sum(1 for line in open(filename))
+
+            i = 1
+            while i < num_lines:
+                try:
+                    data = np.loadtxt(filename, skiprows=i)
+                    break
+                except ValueError:
+                    i += 1                    
+
         table = astropy.table.Table()
 
         # the columns were defined by Nuria to me on 8 Feb, see research notes
