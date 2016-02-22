@@ -7,31 +7,35 @@ from __future__ import division
 
 
 def parse_17_name(filename):
+    """
+    Returns a dict of parameters extracted from a "17*" filename.
 
-    # raise NotImplemented("This code isn't implemented yet. We're still learning about regexes.")
+    """
+
+    if not filename[:4] == '17.l':
+        raise ValueError("`filename` must begin with '17.l'.")
 
     # example string: 17.l1.0.rho1.e-13.rc20.tsc.etad0.6.test2
 
-    input_string = "17.l1.0.rho1.e-13.rc20.tsc.etad0.6.test2"
+    parameter_dict = {}
 
-    # hey... let's just do a thing where we split it by dots and piece the rest together.
+    rho_left, rho_right = filename.split(".rho")
 
-    split_string = input_string.split(".")
+    luminosity_s = rho_left[4:]
+    parameter_dict['luminosity'] = float(luminosity_s)
 
-    if len(split_string) == 10:
+    rho_s, rc_right = rho_right.split('.rc')
+    parameter_dict['rho'] = float(rho_s)
 
-        lum_s = split_string[1] + "." + split_string[2]
-        lum = float(lum_s.lstrip("l"))
-        print "Luminosity: {0}".format(lum)
+    rc_s, tsc_right = rc_right.split('.tsc.etad')
+    parameter_dict['rc'] = float(rc_s)
 
-    else:
+    # the name is everything after the last period
+    name = tsc_right.split('.')[-1]
+    parameter_dict['name'] = name
 
-        raise NotImplemented("We haven't learned how to deal with subtle cases yet")
+    # etadisk is everything in this last fragment before "."+name
+    etadisk_s = tsc_right[:-len("."+name)]
+    parameter_dict['eta_disk'] = float(etadisk_s)
 
-
-
-
-    # pattern = re.compile("17.l(?P<luminosity>).rho(?P<rho>).rc(?P<rc>).tsc.etad(?P<etad>).(?P<name>)")
-
-    
-
+    return parameter_dict
