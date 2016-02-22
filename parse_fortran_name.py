@@ -5,6 +5,7 @@ This is a function that parses the fortran-output filenames.
 
 from __future__ import division
 
+import os
 
 def parse_17_name(filename):
     """
