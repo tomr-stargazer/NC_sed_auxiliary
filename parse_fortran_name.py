@@ -20,19 +20,20 @@ def parse_17_name(filename):
 
     parameter_dict = {}
 
-    rho_left, rho_right = filename.split(".rho")
+    # I feed a `1` to str.split() so it only splits on the first match
+    rho_left, rho_right = filename.split(".rho", 1)
 
     luminosity_s = rho_left[4:]
     parameter_dict['luminosity'] = float(luminosity_s)
 
-    rho_s, rc_right = rho_right.split('.rc')
+    rho_s, rc_right = rho_right.split('.rc', 1)
     parameter_dict['rho'] = float(rho_s)
 
-    rc_s, tsc_right = rc_right.split('.tsc.etad')
+    rc_s, tsc_right = rc_right.split('.tsc.etad', 1)
     parameter_dict['rc'] = float(rc_s)
 
     # the name is everything after the last period
-    name = tsc_right.split('.')[-1]
+    name = tsc_right.split('.', 1)[-1]
     parameter_dict['name'] = name
 
     # etadisk is everything in this last fragment before "."+name
