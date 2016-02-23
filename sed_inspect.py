@@ -12,7 +12,7 @@ import os, sys, glob
 from NC_sed_auxiliary.sed_output import SED_output
 
 
-def some_function_that_does_it():
+def inspect_seds():
 
     # first let's identify what file(s) to read
     cwd = os.getcwd()
@@ -43,5 +43,5 @@ def some_function_that_does_it():
 
 if __name__ == "__main__":
 
-    some_function_that_does_it()
+    inspect_seds()
     sys.exit()
