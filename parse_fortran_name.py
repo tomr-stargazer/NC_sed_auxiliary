@@ -33,7 +33,7 @@ def parse_17_name(filename):
     parameter_dict['rc'] = float(rc_s)
 
     # the name is everything after the last period
-    name = tsc_right.split('.', 1)[-1]
+    name = tsc_right.split('.')[-1]
     parameter_dict['name'] = name
 
     # etadisk is everything in this last fragment before "."+name
